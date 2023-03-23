@@ -1,0 +1,2 @@
+My dear C++ class.
+I hope that you enjoy this assignment.
