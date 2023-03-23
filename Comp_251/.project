@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>Comp_251</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>src/A1/A1_Q3.java</name>
+			<type>1</type>
+			<location>C:/Users/Rayeless/My Drive/McGill/U1/Winter/Comp 251/A1/A1_Q3.java</location>
+		</link>
+		<link>
+			<name>src/A1/Chaining.java</name>
+			<type>1</type>
+			<location>C:/Users/Rayeless/My Drive/McGill/U1/Winter/Comp 251/A1/Chaining.java</location>
+		</link>
+		<link>
+			<name>src/A1/DisjointSets.java</name>
+			<type>1</type>
+			<location>C:/Users/Rayeless/My Drive/McGill/U1/Winter/Comp 251/A1/DisjointSets.java</location>
+		</link>
+		<link>
+			<name>src/A1/Open_Addressing.java</name>
+			<type>1</type>
+			<location>C:/Users/Rayeless/My Drive/McGill/U1/Winter/Comp 251/A1/Open_Addressing.java</location>
+		</link>
+		<link>
+			<name>src/A1/unionfind.txt</name>
+			<type>1</type>
+			<location>C:/Users/Rayeless/My Drive/McGill/U1/Winter/Comp 251/A1/unionfind.txt</location>
+		</link>
+		<link>
+			<name>src/A2/A2_Q1.java</name>
+			<type>1</type>
+			<location>C:/Users/Rayeless/My Drive/McGill/U1/Winter/Comp 251/A2/A2_Q1.java</location>
+		</link>
+		<link>
+			<name>src/A2/A2_Q2.java</name>
+			<type>1</type>
+			<location>C:/Users/Rayeless/My Drive/McGill/U1/Winter/Comp 251/A2/A2_Q2.java</location>
+		</link>
+		<link>
+			<name>src/A2/A2_Q4.java</name>
+			<type>1</type>
+			<location>C:/Users/Rayeless/My Drive/McGill/U1/Winter/Comp 251/A2/A2_Q4.java</location>
+		</link>
+		<link>
+			<name>src/A2/Assignment.java</name>
+			<type>1</type>
+			<location>C:/Users/Rayeless/My Drive/McGill/U1/Winter/Comp 251/A2/Assignment.java</location>
+		</link>
+		<link>
+			<name>src/A2/GreedyTester.java</name>
+			<type>1</type>
+			<location>C:/Users/Rayeless/My Drive/McGill/U1/Winter/Comp 251/A2/GreedyTester.java</location>
+		</link>
+		<link>
+			<name>src/A2/HW_Sched.java</name>
+			<type>1</type>
+			<location>C:/Users/Rayeless/My Drive/McGill/U1/Winter/Comp 251/A2/HW_Sched.java</location>
+		</link>
+		<link>
+			<name>src/A3/A3Q1.java</name>
+			<type>1</type>
+			<location>C:/Users/Rayeless/My Drive/McGill/U1/Winter/Comp 251/A3/A3Q1.java</location>
+		</link>
+		<link>
+			<name>src/A3/A3Q2.java</name>
+			<type>1</type>
+			<location>C:/Users/Rayeless/My Drive/McGill/U1/Winter/Comp 251/A3/A3Q2.java</location>
+		</link>
+		<link>
+			<name>src/A3/FordFulkerson.java</name>
+			<type>1</type>
+			<location>C:/Users/Rayeless/My Drive/McGill/U1/Winter/Comp 251/A3/FordFulkerson.java</location>
+		</link>
+		<link>
+			<name>src/A3/WGraph.java</name>
+			<type>1</type>
+			<location>C:/Users/Rayeless/My Drive/McGill/U1/Winter/Comp 251/A3/WGraph.java</location>
+		</link>
+	</linkedResources>
+</projectDescription>
