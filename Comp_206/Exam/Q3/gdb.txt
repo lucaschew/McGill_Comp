@@ -1,0 +1,8 @@
+1) 
+You would do "gdb (executable name)" and then do "b (executable name)" and set a breakpoint where the program begins to fail. 
+You can then do run in order to go the that line.
+
+2) 
+You can check whether func encode is being passed a NULL, by printing the variable in which is going into the function. 
+You can get to that line by type "n" to move into the next line. 
+You could check that encode is working properly but running encode by itself with a custom parameter.

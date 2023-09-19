@@ -1,0 +1,10 @@
+# StudentID, Case,        N, InstCnt, MemAccess, Misses, MicroSeconds, HitRate
+260971542, MADD1-8Way,64,2666821,1048576,45569,7224,96
+260971542, MADD2-8Way,64,5871172,655360,397056,45577,39
+260971542, MADD1-4Way,64,2666821,1048576,5136,3181,100
+260971542, MADD2-4Way,64,5871172,655360,399872,45859,39
+260971542, MADD1-Direct,64,2666821,1048576,399872,10188,93
+260971542, MADD2-Direct,64,5871172,655360,399872,45859,39
+# TODO: MAKE SURE YOUR STUDENTNUMBER IS CORRECT ON ALL LINES ABOVE,,,,,,,
+# TODO: CAREFULLY copy the instruction count, memory access, misses, and hit rate for each run,,,,
+# TODO: CAREFULLY compute the microsections for each case according to the assignment specification,,,,,,,

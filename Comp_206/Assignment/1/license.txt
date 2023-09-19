@@ -1,0 +1,3 @@
+Copyright : Lucas Chew, 2020 - All Rights Reserved
+Email     : lucas.chew@mail.mcgill.ca
+Dept      : Arts - Computer Science
