@@ -1,0 +1,157 @@
+function [Vx,Vy] = demo_optical_flow(folder_name,frame_number_1,frame_number_2)
+
+% -------------------------------- %
+% DO NOT CHANGE THIS FUNCTION !!!! %
+% -------------------------------- %
+
+% This is just a helper function to test your code
+
+% This is a demo to show the optical flow in quiver plot
+% Examples of using it:
+% demo_optical_flow('Backyard',10,11)
+% demo_optical_flow('Backyard',10) -> it automatically runs  demo_optical_flow('Backyard',10,11)
+% demo_optical_flow('Backyard') -> it runs demo_optical_flow('Backyard',7,8)
+
+if(nargin == 0)
+    folder_name = 'Backyard';
+    frame_number_1 = 7;
+    frame_number_2 = frame_number_1 + 1;
+elseif(nargin == 1)
+    frame_number_1 = 7;
+    frame_number_2 = frame_number_1 + 1;
+elseif(nargin ==2)
+    frame_number_2 = frame_number_1 + 1;
+end
+
+addpath(folder_name);
+
+frame_1 = read_image(folder_name,frame_number_1);
+original1 = read_image_original(folder_name,frame_number_1);
+frame_2 = read_image(folder_name,frame_number_2);
+original2 = read_image_original(folder_name,frame_number_2);
+[Vx,Vy] = compute_LK_optical_flow(frame_1,frame_2);
+
+plotflow(Vx,Vy,original1);
+title('Quiver plot');
+%saveas(gcf, "Backyard_Results\frame" + frame_number_1 + ".png");
+
+end
+            
+function plotflow(Vx,Vy,original1)
+
+% -------------------------------- %
+% DO NOT CHANGE THIS FUNCTION !!!! %
+% -------------------------------- %
+
+s = size(Vx);
+step = max(s)/50; % You can change this if you want a finer grid
+[X, Y] = meshgrid(1:step:s(2), s(1):-step:1);
+u = interp2(Vx, X, Y);
+v = interp2(Vy, X, Y);
+
+imagesc(original1)
+hold on
+quiver(X, Y, u, v, 1, 'cyan', 'LineWidth', 1);
+axis image;
+
+
+end
+
+function I = read_image(folder_name,index)
+
+% -------------------------------- %
+% DO NOT CHANGE THIS FUNCTION !!!! %
+% -------------------------------- %
+
+if(index < 10)
+    I = imread(fullfile(folder_name,strcat('image_smoothed_',num2str(index),'.png')));
+    % Used to be 'frame0'
+else
+    I = imread(fullfile(folder_name,strcat('image_smoothed_',num2str(index),'.png')));
+    % Used to be 'frame'
+end
+
+end
+function I = read_image_original(folder_name,index)
+
+% -------------------------------- %
+% DO NOT CHANGE THIS FUNCTION !!!! %
+% -------------------------------- %
+
+    if (index < 10)
+        I = imread(fullfile(folder_name,strcat('frame',num2str(index),'.png')));
+        % Used to be 'frame0'
+    else
+        I = imread(fullfile(folder_name,strcat('frame',num2str(index),'.png')));
+        % Used to be 'frame'
+    end
+
+end
+
+
+function [Vx, Vy] = compute_LK_optical_flow(frame_1, frame_2)
+    % convert frames to double 
+    sigma = 2;
+
+    img1_d = double(frame_1);
+    img2_d = double(frame_2);
+
+    gauss1 = imgaussfilt(img1_d, sigma);
+    gauss2 = imgaussfilt(img2_d, sigma);
+
+    % compute gradients of current frame
+    [Ix, Iy] = gradient(gauss1);
+    diffArr = gauss1 - gauss2;
+
+    windowSize = 20; 
+    
+    % initialize optical flow vectors
+    Vx = zeros(size(img1_d));
+    Vy = zeros(size(img1_d));
+    
+    for y = 1 + windowSize : size(img1_d, 1) - windowSize
+        for x = 1 + windowSize : size(img1_d, 2) - windowSize
+            % find local gradients and temporal gradient within the window
+            Ix_window = Ix(y - windowSize : y + windowSize, x - windowSize : x + windowSize);
+            Iy_window = Iy(y - windowSize : y + windowSize, x - windowSize : x + windowSize);
+            
+            % Initialize the 2nd moment matrix
+            A = zeros(2,2);
+
+            % make a matrix of x,y gradient pairs and calculate their
+            % structure tensor, then sum them up into the 2nd moment matrix
+            % Get the second moment values
+            dxdx = Ix_window^2;
+            dxdy = Ix_window*Iy_window; 
+            dydy = Iy_window^2;
+
+
+            sndMotionArr = [ sum(dxdx, "all"), sum(dxdy, "all");
+                             sum(dxdy, "all"), sum(dydy, "all")];
+
+            % apply 1D gaussian to the rhs
+            sigma_1d = 4;
+            gaussian1d = (1/(sqrt(2*pi)*sigma_1d)) * exp(-(windowSize*2).^2 / (2*sigma_1d^2));
+            gaussian1d = gaussian1d/sum(gaussian1d); %normalize
+
+            for i = 1 : windowRad*2+1
+            
+                Ix_window(i, :) = conv(Ix_window(y, :), gaussian1d, 'same');
+                Iy_window(i, :) = conv(Iy_window(y, :), gaussian1d, 'same');
+            
+            end
+            
+
+            % calculate the time shift matrix
+            timeArr = [sum((im_x_1d.*It_difference), "all"); 
+                       sum((im_y_1d.*It_difference), "all")];
+            
+            % solve the equation
+            motion_field = pinv(A.' .* A) .* A.' .* B;
+            
+            % Store optical flow components
+            Vx(y, x) = motion_field(1);
+            Vy(y, x) = motion_field(2);
+        end
+    end
+end

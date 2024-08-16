@@ -1,0 +1,175 @@
+
+
+
+function [Vx,Vy] = demo_optical_flow(folder_name,frame_number_1,frame_number_2)
+
+% -------------------------------- %
+% DO NOT CHANGE THIS FUNCTION !!!! %
+% -------------------------------- %
+
+% This is just a helper function to test your code
+
+% This is a demo to show the optical flow in quiver plot
+% Examples of using it:
+% demo_optical_flow('Backyard',10,11)
+% demo_optical_flow('Backyard',10) -> it automatically runs  demo_optical_flow('Backyard',10,11)
+% demo_optical_flow('Backyard') -> it runs demo_optical_flow('Backyard',7,8)
+
+if(nargin == 0)
+    folder_name = 'Backyard';
+    frame_number_1 = 7;
+    frame_number_2 = frame_number_1 + 1;
+elseif(nargin == 1)
+    frame_number_1 = 7;
+    frame_number_2 = frame_number_1 + 1;
+elseif(nargin ==2)
+    frame_number_2 = frame_number_1 + 1;
+end
+
+addpath(folder_name);
+
+frame_1 = read_image(folder_name,frame_number_1);
+original1 = read_image_original(folder_name,frame_number_1);
+frame_2 = read_image(folder_name,frame_number_2);
+original2 = read_image_original(folder_name,frame_number_2);
+[Vx,Vy] = compute_LK_optical_flow(frame_1,frame_2);
+
+
+
+plotflow(Vx,Vy,original1);
+title('Quiver plot');
+saveas(gcf, "Backyard_Results2\frame" + frame_number_1 + ".png");
+
+end
+
+function [Vx, Vy] = compute_LK_optical_flow(frame_1, frame_2)
+
+    im1_d = im2gray(im2double(frame_1));
+    im2_d = im2gray(im2double(frame_2));
+    
+    motionField_x = zeros(size(im1_d));
+    motionField_y = zeros(size(im1_d));
+
+    % Parameters
+    
+    sigma = 4;
+    vectorSpacing = 10;
+    [sizeY, sizeX] = size(im1_d);
+    windowRad = 20;
+
+    % The amount moved (t)
+    imDiff = im1_d - im2_d;
+
+    % Create 1D Gaussian
+    gauss1D_x = (1:windowRad*2+1);
+    gauss1D_y = (1/(sqrt(2*pi)*sigma))*exp(-((gauss1D_x).^2)/(2*(sigma.^2))); 
+    gauss1D_y = gauss1D_y./sum(gauss1D_y);
+
+    % Create 2D Gaussian
+    gauss2D = imgaussfilt(im1_d, sigma);
+    [im_x_2d, im_y_2d] = gradient(gauss2D);
+
+    for y = 1 + windowRad : vectorSpacing : length(im1_d(1, :)) - windowRad
+    
+        for x = 1 + windowRad : vectorSpacing : length(im1_d(:, 1)) - windowRad
+
+            windowArr_x_gauss2D = im_x_2d(x-windowRad : x+windowRad, y-windowRad : y+windowRad);
+            windowArr_y_gauss2D = im_y_2d(x-windowRad : x+windowRad, y-windowRad : y+windowRad);
+            
+            % Get the second moment values
+            dxdx = windowArr_x_gauss2D^2;
+            dxdy = windowArr_x_gauss2D*windowArr_y_gauss2D; 
+            dydy = windowArr_y_gauss2D^2;
+
+            sndMotionArr = [ sum(dxdx, "all"), sum(dxdy, "all");
+                             sum(dxdy, "all"), sum(dydy, "all")];
+
+            sndMotionArr_T = transpose(sndMotionArr);
+            
+            % 1D Gauss to Right side of Equation
+            
+            im_gauss1d = im1_d(x-windowRad : x+windowRad, y-windowRad : y+windowRad);
+            
+            [im_x_1d, im_y_1d] = gradient(im_gauss1d);
+
+                        for i = 1 : windowRad*2+1
+            
+                im_gauss1d(i, :) = conv(im_gauss1d(i, :), gauss1D_y, 'same');
+            
+            end
+            
+            % Find motion for each pixel
+    
+            diffArr = imDiff(x-windowRad : x+windowRad, y-windowRad : y+windowRad);
+    
+            timeArr = [sum((im_x_1d.*diffArr), "all"); 
+                       sum((im_y_1d.*diffArr), "all")];
+
+            % Inv of snd Movement arr * time arr
+            motionArr = pinv(sndMotionArr * sndMotionArr_T) * sndMotionArr_T * timeArr;
+    
+            motionField_x(x, y) = motionArr(1);
+            motionField_y(x, y) = motionArr(2);
+    
+        end
+    
+    end
+    
+    % Create the smaller motion field 
+    small_MFX = motionField_x(1+windowRad:vectorSpacing:end-windowRad, 1+windowRad:vectorSpacing:end-windowRad);
+    small_MFY = motionField_y(1+windowRad:vectorSpacing:end-windowRad, 1+windowRad:vectorSpacing:end-windowRad);
+
+    Vx = small_MFX);
+
+end
+
+function plotflow(Vx,Vy,original1)
+
+% -------------------------------- %
+% DO NOT CHANGE THIS FUNCTION !!!! %
+% -------------------------------- %
+
+s = size(Vx);
+step = max(s)/50; % You can change this if you want a finer grid
+[X, Y] = meshgrid(1:step:s(2), s(1):-step:1);
+u = interp2(Vx, X, Y);
+v = interp2(Vy, X, Y);
+
+imagesc(original1)
+hold on
+quiver(X, Y, u, v, 1, 'cyan', 'LineWidth', 1);
+axis image;
+
+
+end
+
+function I = read_image(folder_name,index)
+
+% -------------------------------- %
+% DO NOT CHANGE THIS FUNCTION !!!! %
+% -------------------------------- %
+
+if(index < 10)
+    I = imread(fullfile(folder_name,strcat('image_smoothed_',num2str(index),'.png')));
+    % Used to be 'frame0'
+else
+    I = imread(fullfile(folder_name,strcat('image_smoothed_',num2str(index),'.png')));
+    % Used to be 'frame'
+end
+
+end
+function I = read_image_original(folder_name,index)
+
+% -------------------------------- %
+% DO NOT CHANGE THIS FUNCTION !!!! %
+% -------------------------------- %
+
+if(index < 10)
+    I = imread(fullfile(folder_name,strcat('frame',num2str(index),'.png')));
+    % Used to be 'frame0'
+else
+    I = imread(fullfile(folder_name,strcat('frame',num2str(index),'.png')));
+    % Used to be 'frame'
+end
+
+end
