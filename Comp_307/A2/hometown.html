@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="styles.css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+
+  <body>
+    <header>
+      <h1 class="cityName">King City, Ontario, Canada</h1>
+    </header>
+
+    <aside>
+      <div id="googleMap" class="googleMap"></div>
+    </aside>
+
+    <article>
+      <div id="temperature" class="temperature"></div>
+    </article>
+
+    <footer>
+      <h2 class="attractionTitle">Things to Do</h2>
+      <div class="attractionList">
+        <a
+          href="https://www.google.com/maps/place/Oak+Ridges+Trail/@43.9523908,-79.5357937,15.25z/data=!4m9!1m2!2m1!1sking+city+temperature!3m5!1s0x882ad7a1a9e2a4bb:0x47df70442b823a13!8m2!3d43.954031!4d-79.5350555!16s%2Fg%2F11fy55b255?entry=ttu&g_ep=EgoyMDI0MDkxNi4wIKXMDSoASAFQAw%3D%3D"
+          target="_blank"
+          class="attraction"
+        >
+          <div>
+            <h3>Oak Ridge Trails</h3>
+            <p>You can walk a trail that is engulfed in fauna and flora</p>
+          </div>
+        </a>
+        <a
+          href="https://www.google.com/maps/place/Kinghaven+Farms/@43.9235314,-79.6586345,12z/data=!4m10!1m2!2m1!1shoney!3m6!1s0x882b27c5dc63a879:0x414d9388b7d4b16c!8m2!3d43.9136168!4d-79.5960025!15sCgVob25leVoHIgVob25leZIBBGZhcm2aASNDaFpEU1VoTk1HOW5TMFZKUTBGblNVTXRlUzFVZDJWbkVBReABAA!16s%2Fg%2F11smmggqdj?entry=ttu&g_ep=EgoyMDI0MDkxNi4wIKXMDSoASAFQAw%3D%3D"
+          target="_blank"
+          class="attraction"
+        >
+          <div>
+            <h3>King Haven Farms</h3>
+            <p>You can watch horses graze and buy some honey</p>
+          </div>
+        </a>
+        <a
+          href="https://www.google.com/maps/place/King+City+Public+Library/@43.931566,-79.52535,16z/data=!4m6!3m5!1s0x882ad634ac79a1eb:0xe88ca560076e410e!8m2!3d43.9315946!4d-79.5174012!16s%2Fg%2F1pzqcb0f3?hl=en-CA&entry=ttu&g_ep=EgoyMDI0MDkxNi4wIKXMDSoASAFQAw%3D%3D"
+          target="_blank"
+          class="attraction"
+        >
+          <div>
+            <h3>King City Library</h3>
+            <p>You can read at the public library</p>
+          </div>
+        </a>
+      </div>
+    </footer>
+
+    <script>
+      function myMap() {
+        // Step 1: Create the map
+        var mapProp = {
+          center: new google.maps.LatLng(43.92883966337615, -79.529150824905),
+          zoom: 5,
+        };
+        var map = new google.maps.Map(
+          document.getElementById("googleMap"),
+          mapProp
+        );
+        // Step 2L Add the overlay
+        var marker = new google.maps.Marker({
+          position: new google.maps.LatLng(43.92883966337615, -79.529150824905),
+          animation: google.maps.Animation.BOUNCE,
+        });
+        marker.setMap(map);
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5m2yg6ujruPhO6yizKt_K-_pWdloa_bU&callback=myMap"></script>
+    <script>
+      // Fetch data from Open Meteo API
+      fetch(
+        "https://api.open-meteo.com/v1/forecast?latitude=43.92883966337615&longitude=-79.529150824905&current=temperature_2m"
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          const temperatureComponent = document.getElementById("temperature");
+          const temp = document.createElement("h3");
+          temp.className = "currentTemperature";
+          temp.textContent = `Current Temperature: ${data.current.temperature_2m}°C`;
+          temperatureComponent.appendChild(temp);
+        });
+    </script>
+  </body>
+</html>

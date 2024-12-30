@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Web Page</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <img class="logo" src="Images/logoCropped.png" alt="Logo" />
+
+      <!-- Site Navigation Bar -->
+      <nav class="site-nav">
+        <ul>
+          <li><a href="#">Platform</a></li>
+          <li><a href="#">Plans</a></li>
+          <li><a href="#">Enterprise</a></li>
+          <li><a href="#">Resources</a></li>
+          <li><a href="#">Education</a></li>
+        </ul>
+      </nav>
+
+      <!-- Utility Navigation Bar -->
+      <div class="utility-nav">
+        <a href="#" class="contact">Contact Us</a>
+        <a href="#" class="login">Log In</a>
+        <a href="https://signup.live.com/" class="signup">Sign Up</a>
+      </div>
+
+      <!-- Hamburger Button-->
+      <img
+        src="Images/hamburger.png"
+        alt="Open Navigation Menu"
+        class="hamburger-menu"
+      />
+    </header>
+
+    <!-- Hamburger Menu Stuff -->
+    <nav class="mobile-nav">
+      <ul>
+        <li><a href="#">Platform</a></li>
+        <li><a href="#">Plans</a></li>
+        <li><a href="#">Enterprise</a></li>
+        <li><a href="#">Resources</a></li>
+        <li><a href="#">Education</a></li>
+        <li><span></span></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Log In</a></li>
+        <li>
+          <a href="https://signup.live.com/" class="signup">Sign Up</a>
+        </li>
+      </ul>
+    </nav>
+
+    <script>
+      const hamburgerMenu = document.querySelector(".hamburger-menu");
+      const mobileNav = document.querySelector(".mobile-nav");
+
+      hamburgerMenu.addEventListener("click", () => {
+        mobileNav.classList.toggle("open");
+      });
+    </script>
+
+    <main>
+      <section class="banner">
+        <h1>See value from social sooner</h1>
+        <p>
+          Our training and strategic services have helped thousands of
+          organizations succeed on social.
+        </p>
+        <a href="https://www.investopedia.com/simulator/" class="demo-button"
+          >Request a Demo</a
+        >
+      </section>
+
+      <section class="stats">
+        <div class="stat-item">
+          <img src="Images/rocket.png" alt="Rocket Icon" class="stat-image" />
+          <h2>2,500</h2>
+          <p>enterprise organizations successfully launched</p>
+        </div>
+        <div class="stat-item">
+          <img src="Images/screen.png" alt="Screen Icon" class="stat-image" />
+          <h2>45,000</h2>
+          <p>enterprise users onboarded seamlessly</p>
+        </div>
+        <div class="stat-item">
+          <img
+            src="Images/convo.png"
+            alt="Conversation Icon"
+            class="stat-image"
+          />
+          <h2>200,000+</h2>
+          <p>professionals trained on product and strategy</p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+To Trim:
+	awk -F, '$2 ~ /2020/' nyc_311_limit.csv > trimed2020_data.csv
+	
+To Call Fn:
+	borough_complains.py -i ../trimed2020_data.csv -s 01/01/2020 -e 12/31/2020 -o 2months.csv
+	
+Task 3:
+	most_complaints.py -i ../trimed2020_data.csv -s 01/01/2020 -e 12/31/2020
+	
+	Desc:
+		- The most complaints in the year of 2020 is Residential Noise at 306912 complains
+		- In Jan-Feb, Noise - Residential is 36169. Beaten by Heat/Hot Water issues
+		- In June-July, Noise - Residential, 81346. Majority of complaints
+
+Task 4:
+	- Load Bokeh
+		bokeh serve --port 8080 ./"Task 4"/bokehGraph.py

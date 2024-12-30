@@ -1,0 +1,279 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.logo {
+  height: auto;
+  max-width: 20%;
+}
+
+/* Utility Navigation Bar */
+.utility-nav {
+  display: flex;
+  margin-right: 3%;
+  text-align: center;
+
+  a {
+    color: black;
+    text-decoration: none;
+    padding: 8px 16px;
+  }
+
+  .signup {
+    background-color: #22a565;
+    font-weight: 600;
+    color: white;
+    padding: 8px 16px;
+  }
+}
+
+/* Site Navigation Bar */
+.site-nav {
+  a {
+    text-decoration: none;
+    font-weight: 600;
+    color: black;
+  }
+
+  ul {
+    display: flex;
+    list-style-type: none;
+    gap: 20px;
+  }
+}
+
+/* Hamburger Menu */
+.hamburger-menu {
+  height: auto;
+  width: auto;
+  max-width: 45px;
+  max-height: 45px;
+  display: none;
+  cursor: pointer;
+}
+
+/* Mobile Navigation - initially hidden */
+.mobile-nav {
+  display: none;
+  position: absolute;
+  top: 70px;
+  width: 100%;
+  background-color: #536878;
+  height: fit-content;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    padding: 15px;
+    border-color: black;
+    gap: 5px;
+  }
+
+  li {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 5px;
+  }
+
+  a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    display: block;
+    text-align: center;
+    border: 1px;
+  }
+
+  span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: white;
+  }
+
+  .signup {
+    background-color: #22a565;
+    border-radius: 5px;
+    font-weight: 600;
+    color: white;
+    padding: 8px 16px;
+  }
+}
+
+.banner {
+  background-color: #0f294d;
+  text-align: center;
+  padding: 80px 20px;
+
+  h1 {
+    color: white;
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: white;
+    font-size: 18px;
+    max-width: 30%;
+    margin: 20px auto;
+  }
+}
+
+.demo-button {
+  display: inline-block;
+  background-color: #22a565;
+  color: white;
+  padding: 15px 30px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  padding: 50px 20px;
+}
+
+.stat-item {
+  text-align: center;
+
+  h2 {
+    font-size: 24px;
+    margin-top: 10px;
+    margin-bottom: 10%;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  .stat-image {
+    object-fit: fill;
+    width: auto;
+    height: auto;
+    min-width: 280px;
+    min-height: 280px;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .logo {
+    flex: 1;
+    max-width: 40%;
+  }
+  /* Hide site navigation bar on smaller screens */
+  .site-nav {
+    display: none;
+  }
+
+  /* Show hamburger menu for mobile screens */
+  .hamburger-menu {
+    display: flex;
+  }
+
+  /* Ensure utility nav stays visible */
+  .utility-nav {
+    flex-direction: row;
+    gap: 10px;
+    display: flex;
+  }
+
+  /* Show mobile navigation when the menu is open */
+  .mobile-nav.open {
+    display: block;
+  }
+
+  .stats {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .stat-item {
+    h2 {
+      margin-bottom: 3%;
+    }
+  }
+
+  .demo-button {
+    font-size: 16px;
+  }
+
+  .banner {
+    p {
+      font-size: 16px;
+      max-width: 50%;
+    }
+
+    h1 {
+      font-size: 32px;
+    }
+  }
+
+  .demo-button {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .mobile-nav {
+    font-size: 12px;
+  }
+
+  .utility-nav {
+    flex: 1;
+    justify-content: end;
+  }
+
+  .banner {
+    h1 {
+      font-size: 28px;
+    }
+
+    p {
+      font-size: 14px;
+      max-width: 70%;
+    }
+  }
+
+  .contact {
+    display: none;
+  }
+
+  .login {
+    display: none;
+  }
+
+  .demo-button {
+    font-weight: 500;
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+
+  .stat-item {
+    h2 {
+      margin-bottom: 5%;
+    }
+  }
+
+  .logo {
+    height: auto;
+    max-width: 40%;
+  }
+}

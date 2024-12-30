@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!-- Lucas Chew 260971542 -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sample Form</title>
+    <style>
+      .row {
+        display: flex;
+        margin-bottom: 5px;
+      }
+
+      .gridItemLabel {
+        width: 100px;
+      }
+    </style>
+    <script>
+      function validateEntry() {
+        const firstName = document.getElementById("firstName").value;
+        const lastName = document.getElementById("lastName").value;
+        const email = document.getElementById("email").value;
+        const phone = document.getElementById("phone").value;
+
+        if (
+          firstName === "" ||
+          lastName === "" ||
+          email === "" ||
+          phone === ""
+        ) {
+          alert("Please fill in all fields before submitting the form.");
+          return false;
+        }
+
+        return true;
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Registration Form</h1>
+    <p>Please fill in all fields and click Register.</p>
+
+    <form action="mini5.php" method="POST" onsubmit="return validateEntry();">
+      <!-- User Information Section -->
+      <h2>User Information</h2>
+
+      <div class="row">
+        <label class="gridItemLabel" for="firstName" style="display: flex">
+          First name:
+        </label>
+        <input type="text" id="firstName" name="firstName" />
+      </div>
+
+      <div class="row">
+        <label class="gridItemLabel" for="lastName">Last name:</label>
+        <input type="text" id="lastName" name="lastName" />
+      </div>
+
+      <div class="row">
+        <label class="gridItemLabel" for="email">Email:</label>
+        <input type="email" id="email" name="email" />
+      </div>
+
+      <div class="row">
+        <label class="gridItemLabel" for="phone">Phone:</label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          placeholder="(555) 555-5555"
+        />
+      </div>
+
+      <!-- Publications Section -->
+      <h2>Publications</h2>
+
+      <label for="book">Which book would you like information about?</label>
+      <br /><br />
+      <select id="book" name="book">
+        <option value="pancreas">I Want to Eat your Pancreas</option>
+        <option value="kino">Kino's Journey</option>
+        <option value="1984">1984</option>
+        <option value="animal">Animal Farm</option>
+      </select>
+
+      <!-- Operating System Section -->
+      <h2>Operating System</h2>
+
+      <p>Which operating system do you use?</p>
+      <label>
+        <input type="radio" name="os" value="windows" checked />
+        Windows
+      </label>
+      <label> <input type="radio" name="os" value="mac" />Mac OS X</label>
+      <label> <input type="radio" name="os" value="linux" />Linux</label>
+      <label> <input type="radio" name="os" value="other" />Other</label>
+
+      <!-- Submit Button -->
+      <br />
+      <br />
+      <button type="submit">Register</button>
+    </form>
+  </body>
+</html>
